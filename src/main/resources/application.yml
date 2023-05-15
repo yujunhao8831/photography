@@ -1,0 +1,70 @@
+# 服务器
+server:
+  port: 8080
+  # 压缩,这个属性样板打开了压缩选项，这样稍后应用到JSON正文的压缩就有保证了。
+  compression:
+    enabled: true
+    mime-types: application/json
+  servlet:
+    encoding:
+      enabled: true
+      charset: UTF-8
+      force: true
+spring:
+  application:
+    name: photography
+  # HTTP字符编码
+  # 缓存
+  cache:
+    type: SIMPLE
+  datasource:
+    username: root
+    password: 123456789
+    url: jdbc:mysql://127.0.0.1:3306/photography?useUnicode=true&characterEncoding=utf8&autoReconnect=true&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true
+    type: com.alibaba.druid.pool.DruidDataSource
+    # 文档 : https://github.com/alibaba/druid/tree/1.1.0/druid-spring-boot-starter
+    druid:
+      # 连接池配置，说明请参考Druid Wiki，配置_DruidDataSource参考配置 -> https://github.com/alibaba/druid/wiki/%E9%85%8D%E7%BD%AE_DruidDataSource%E5%8F%82%E8%80%83%E9%85%8D%E7%BD%AE
+      filters: stat # 配置监控统计拦截的filters,默认值为stat，配置多个请以英文逗号分隔，如stat,wall,log4j
+      initialSize: 5
+      minIdle: 5
+      maxActive: 20
+      maxWait: 60000 # 配置获取连接等待超时的时间
+      timeBetweenEvictionRunsMillis: 60000 # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+      minEvictableIdleTimeMillis: 300000 # 配置一个连接在池中最小生存的时间，单位是毫秒
+      validationQuery: SELECT 1
+      testWhileIdle: true
+      testOnBorrow: false
+      testOnReturn: false
+      poolPreparedStatements: true # 是否打开PSCache
+      maxPoolPreparedStatementPerConnectionSize: 20 # 指定每个连接上PSCache的大小
+  # AOP
+  aop:
+    proxy-target-class: true
+    auto: true
+# 分页 page helper
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
+
+# 项目自定义配置
+photography:
+  filter:
+    injection-attack-interceptor:
+      enabled: true
+
+# jwt 配置
+jwt:
+  # header中key,以改值为key在header中获取 request.getHeader('key')
+  header: Authorization
+  # 签名密钥
+  secret: photography
+  # 过期时间,单位:秒
+  expiration: 3600
+
+
+# 日志
+logging:
+  config: classpath:log4j2.xml
