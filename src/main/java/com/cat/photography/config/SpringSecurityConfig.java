@@ -3,19 +3,20 @@ package com.cat.photography.config;
 import com.cat.photography.config.security.jwt.JwtAuthenticationEntryPoint;
 import com.cat.photography.config.security.jwt.JwtAuthenticationTokenFilter;
 import com.cat.photography.config.security.jwt.JwtTokenUtil;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.logout.LogoutFilter;
 
 /**
  * @author : 披荆斩棘
@@ -25,40 +26,20 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 public class SpringSecurityConfig {
 
-    @Autowired
-    private UserDetailsService          userDetailsService;
-    @Autowired
-    private JwtTokenUtil                jwtTokenUtil;
-    @Autowired
-    private PasswordEncoder             passwordEncoder;
-    @Autowired
-    private JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
     @Value( "${jwt.header:Authorization}" )
-    private String                      tokenHeader;
+    private String tokenHeader;
 
-
-    //    @Bean
-    //    public UserDetailsService userDetailsService(UserDetailsService userDetailsService) {
-    //        UserDetails user =
-    //                User.withDefaultPasswordEncoder()
-    //                    .username("user")
-    //                    .password("password")
-    //                    .roles("USER")
-    //                    .build();
-    //
-    //        return new InMemoryUserDetailsManager(userDetailsService);
-    //    }
 
     @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
-
-    @Autowired
-    public void configureAuthentication(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration ,
+                                                       AuthenticationManagerBuilder authenticationManagerBuilder ,
+                                                       UserDetailsService userDetailsService
+    ) throws
+      Exception {
         authenticationManagerBuilder
-                .userDetailsService(this.userDetailsService)
-                .passwordEncoder(this.passwordEncoder);
+                .userDetailsService(userDetailsService)
+                .passwordEncoder(new BCryptPasswordEncoder());
+        return authenticationConfiguration.getAuthenticationManager();
     }
 
 
@@ -73,7 +54,11 @@ public class SpringSecurityConfig {
     }
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http ,
+                                                   JwtTokenUtil jwtTokenUtil ,
+                                                   JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint ,
+                                                   UserDetailsService userDetailsService
+    ) throws Exception {
         http
                 // jwt不需要csrf
                 .csrf().disable()
@@ -94,6 +79,7 @@ public class SpringSecurityConfig {
         );
         // 基于定制JWT安全过滤器
         http.addFilterBefore(jwtAuthenticationTokenFilter , UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(new ExceptionHandlerFilter() , LogoutFilter.class);
         // 禁用页面缓存
         http.headers().cacheControl();
         return http.build();

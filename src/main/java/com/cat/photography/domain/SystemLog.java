@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
  * 系统日志表
  * </p>
  *
- * @author baomidou
+ * 
  * @since 2023-05-15
  */
 @Data

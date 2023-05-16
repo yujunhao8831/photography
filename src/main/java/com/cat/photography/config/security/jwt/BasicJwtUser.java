@@ -3,7 +3,7 @@ package com.cat.photography.config.security.jwt;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * @author : 披荆斩棘
@@ -16,12 +16,12 @@ public interface BasicJwtUser extends UserDetails {
      *
      * @return id
      */
-    Serializable getId ();
+    Serializable getId();
 
     /**
      * 密码最后重置(修改)日期
      *
      * @return Date
      */
-    Date getLastPasswordResetDate ();
+    LocalDateTime getLastPasswordResetDate();
 }

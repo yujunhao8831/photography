@@ -9,7 +9,7 @@ import com.cat.photography.domain.SystemConfig;
  * 系统配置 服务类
  * </p>
  *
- * @author baomidou
+ * 
  * @since 2023-05-15
  */
 public interface SystemConfigService extends IService< SystemConfig > {

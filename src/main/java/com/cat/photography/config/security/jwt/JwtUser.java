@@ -6,9 +6,9 @@ import lombok.experimental.Accessors;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Date;
 
 /**
  * jwt对象
@@ -23,18 +23,18 @@ import java.util.Date;
 @NoArgsConstructor
 public class JwtUser implements BasicJwtUser {
 
-    private Long    id;
-    private String  username;
-    private String  password;
-    private String  nickName;
-    private String  realName;
-    private String  email;
-    private String  phone;
-    private Date    lastPasswordResetDate;
-    private Date    createTime;
-    private Date    updateTime;
-    private String  remark;
-    private boolean enabled;
+    private Long          id;
+    private String        username;
+    private String        password;
+    private String        nickName;
+    private String        realName;
+    private String        email;
+    private String        phone;
+    private LocalDateTime lastPasswordResetDate;
+    private LocalDateTime createTime;
+    private LocalDateTime updateTime;
+    private String        remark;
+    private boolean       enabled;
 
     @Override
     public String getUsername() {

@@ -9,9 +9,11 @@ import com.cat.photography.domain.ManageUser;
  * 用户 服务类
  * </p>
  *
- * @author baomidou
+ * 
  * @since 2023-05-15
  */
 public interface ManageUserService extends IService< ManageUser > {
 
+    ManageUser findByUsername(String username);
+    
 }

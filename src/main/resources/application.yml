@@ -19,7 +19,7 @@ spring:
     type: SIMPLE
   datasource:
     username: root
-    password: 123456789
+    password: root
     url: jdbc:mysql://127.0.0.1:3306/photography?useUnicode=true&characterEncoding=utf8&autoReconnect=true&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true
     type: com.alibaba.druid.pool.DruidDataSource
     # 文档 : https://github.com/alibaba/druid/tree/1.1.0/druid-spring-boot-starter
@@ -48,12 +48,6 @@ pagehelper:
   reasonable: true
   supportMethodsArguments: true
   params: count=countSql
-
-# 项目自定义配置
-photography:
-  filter:
-    injection-attack-interceptor:
-      enabled: true
 
 # jwt 配置
 jwt:

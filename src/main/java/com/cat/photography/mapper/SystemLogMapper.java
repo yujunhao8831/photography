@@ -9,7 +9,7 @@ import com.cat.photography.domain.SystemLog;
  * 系统日志表 Mapper 接口
  * </p>
  *
- * @author baomidou
+ * 
  * @since 2023-05-15
  */
 public interface SystemLogMapper extends BaseMapper< SystemLog > {

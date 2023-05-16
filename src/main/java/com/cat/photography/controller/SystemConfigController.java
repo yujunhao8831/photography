@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
  * 系统配置 前端控制器
  * </p>
  *
- * @author baomidou
+ * 
  * @since 2023-05-15
  */
 @RestController

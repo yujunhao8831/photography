@@ -7,16 +7,12 @@ import com.cat.photography.common.filter.RequestLoggingFilter;
 import com.cat.photography.common.interceptor.InjectionAttackInterceptor;
 import com.cat.photography.config.converter.StringToDateConverter;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.web.server.ErrorPage;
 import org.springframework.boot.web.server.ErrorPageRegistrar;
 import org.springframework.boot.web.server.ErrorPageRegistry;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.Ordered;
-import org.springframework.core.annotation.Order;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
@@ -30,7 +26,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.nio.charset.StandardCharsets;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * Spring 配置
@@ -41,34 +36,13 @@ import java.util.Objects;
 @Configuration
 public class SpringConfig implements WebMvcConfigurer, ErrorPageRegistrar {
 
-
-    @Autowired( required = false )
-    private InjectionAttackInterceptor injectionAttackInterceptor;
-
-    /**
-     * <pre>
-     *      goblin:
-     *        filter:
-     *          injection-attack-interceptor:
-     *            enabled: true
-     *
-     * </pre>
-     */
-    @Bean
-    @Order( Ordered.HIGHEST_PRECEDENCE )
-    @ConditionalOnProperty( prefix = "photography.filter.injection-attack-interceptor", name = "enabled", havingValue = "true" )
-    public InjectionAttackInterceptor injectionAttackInterceptor () {
-        return new InjectionAttackInterceptor();
-    }
-
-
     /**
      * 添加过滤器
      *
      * @return
      */
     @Bean
-    public FilterRegistrationBean filterRegistrationBean () {
+    public FilterRegistrationBean<RequestLoggingFilter> requestLoggingFilter () {
         String[] excludeUrlPatterns = { "*.js" , "*.jpg" , "*.png" , "*.css" , "*.html" , "*.gif" };
         // 日志处理过滤器
         return new FilterRegistrationBean<>( new RequestLoggingFilter().setExcludeUrlPatterns(excludeUrlPatterns ) );
@@ -115,9 +89,7 @@ public class SpringConfig implements WebMvcConfigurer, ErrorPageRegistrar {
 
     @Override
     public void addInterceptors ( InterceptorRegistry registry ) {
-        if ( Objects.nonNull( injectionAttackInterceptor ) ) {
-            registry.addInterceptor( injectionAttackInterceptor ).addPathPatterns( "/**" );
-        }
+        registry.addInterceptor( new InjectionAttackInterceptor() ).addPathPatterns( "/**" );
     }
 
     /**

@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
  * 系统日志表 服务实现类
  * </p>
  *
- * @author baomidou
+ * 
  * @since 2023-05-15
  */
 @Service
