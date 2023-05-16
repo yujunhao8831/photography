@@ -5,6 +5,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.github.bohnman.squiggly.Squiggly;
 
 import java.text.DateFormat;
@@ -32,6 +33,7 @@ public final class JsonUtils {
     static {
         BASIC.setDateFormat( new SimpleDateFormat( DateFormatStyle.CN_DATE_BASIC_STYLE.getDateStyle() ) );
 		BASIC.configure( DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false );
+        BASIC.registerModule(new JavaTimeModule());
     }
 
     /**
@@ -241,7 +243,8 @@ public final class JsonUtils {
 			setSerializationInclusion( JsonInclude.Include.NON_NULL );
 			// 遇到未知属性,略过
 			configure( DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false );
-		}
+            registerModule(new JavaTimeModule());
+        }
 
         private CustomizationObjectMapper () {
 			// 默认只支持 yyyy-MM-dd HH:mm:ss

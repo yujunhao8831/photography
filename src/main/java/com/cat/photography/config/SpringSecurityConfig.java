@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -16,14 +17,18 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.authentication.logout.LogoutFilter;
 
 /**
+ * @PreAuthorize
+ * https://docs.spring.io/spring-security/site/docs/3.0.x/reference/el-access.html
+ *
+ *
  * @author : 披荆斩棘
  * @date : 2017/6/8
  */
 @Configuration
 @EnableWebSecurity
+@EnableMethodSecurity
 public class SpringSecurityConfig {
 
     @Value( "${jwt.header:Authorization}" )
@@ -79,7 +84,6 @@ public class SpringSecurityConfig {
         );
         // 基于定制JWT安全过滤器
         http.addFilterBefore(jwtAuthenticationTokenFilter , UsernamePasswordAuthenticationFilter.class);
-        http.addFilterBefore(new ExceptionHandlerFilter() , LogoutFilter.class);
         // 禁用页面缓存
         http.headers().cacheControl();
         return http.build();

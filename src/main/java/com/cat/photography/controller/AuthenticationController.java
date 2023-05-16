@@ -69,9 +69,8 @@ public class AuthenticationController {
 	 *
 	 * @return token
 	 */
-	// TEST
-	@GetMapping
-	public ResponseEntity refreshAndGetAuthenticationToken ( @RequestParam final String token ) {
+	@PutMapping
+	public ResponseEntity refreshAndGetAuthenticationToken ( @RequestHeader( "${jwt.header:Authorization}" ) final String token ) {
 		String username = jwtTokenUtil.getUsernameFromToken( token );
 		if ( StringUtils.isBlank( username ) ) {
 			throw new AuthenticationCredentialsNotFoundException( "无效token" );
