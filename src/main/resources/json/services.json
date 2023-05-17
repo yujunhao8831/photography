@@ -1,0 +1,27 @@
+[
+  {
+    "title": "Camera",
+    "body": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum exercitationem quae id dolorum debitis.",
+    "price": "$29"
+  },{
+  "title": "Wedding Photography",
+  "body": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum exercitationem quae id dolorum debitis.",
+  "price": "$19"
+},{
+  "title": "Animal",
+  "body": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum exercitationem quae id dolorum debitis.",
+  "price": "$69"
+},{
+  "title": "Portrait",
+  "body": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum exercitationem quae id dolorum debitis.",
+  "price": "$26"
+},{
+  "title": "Travel",
+  "body": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum exercitationem quae id dolorum debitis.",
+  "price": "$39"
+},{
+  "title": "Video Editing",
+  "body": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum exercitationem quae id dolorum debitis.",
+  "price": "$19"
+}
+]

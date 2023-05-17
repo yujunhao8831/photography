@@ -1,0 +1,38 @@
+[
+  {
+    "imageName": "Nature",
+    "imageUrl": "images/img_1.jpg"
+  },
+  {
+    "imageName": "Portrait",
+    "imageUrl": "images/img_2.jpg"
+  },
+  {
+    "imageName": "People",
+    "imageUrl": "images/img_3.jpg"
+  },
+  {
+    "imageName": "Architecture",
+    "imageUrl": "images/img_4.jpg"
+  },
+  {
+    "imageName": "Animals",
+    "imageUrl": "images/img_5.jpg"
+  },
+  {
+    "imageName": "Sports",
+    "imageUrl": "images/img_6.jpg"
+  },
+  {
+    "imageName": "Travel",
+    "imageUrl": "images/img_7.jpg"
+  },
+  {
+    "imageName": "People",
+    "imageUrl": "images/img_2.jpg"
+  },
+  {
+    "imageName": "Architecture",
+    "imageUrl": "images/img_1.jpg"
+  }
+]
