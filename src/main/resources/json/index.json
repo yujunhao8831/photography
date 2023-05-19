@@ -1,38 +1,47 @@
 [
   {
-    "imageName": "Nature",
-    "imageUrl": "images/img_1.jpg"
+    "tagCode": "tag_1",
+    "tagName": "Nature",
+    "tagImageUrl": "images/img_1.jpg"
   },
   {
-    "imageName": "Portrait",
-    "imageUrl": "images/img_2.jpg"
+    "tagCode": "tag_2",
+    "tagName": "Portrait",
+    "tagImageUrl": "images/img_2.jpg"
   },
   {
-    "imageName": "People",
-    "imageUrl": "images/img_3.jpg"
+    "tagCode": "tag_3",
+    "tagName": "People",
+    "tagImageUrl": "images/img_3.jpg"
   },
   {
-    "imageName": "Architecture",
-    "imageUrl": "images/img_4.jpg"
+    "tagCode": "tag_4",
+    "tagName": "Architecture",
+    "tagImageUrl": "images/img_4.jpg"
   },
   {
-    "imageName": "Animals",
-    "imageUrl": "images/img_5.jpg"
+    "tagCode": "tag_5",
+    "tagName": "Animals",
+    "tagImageUrl": "images/img_5.jpg"
   },
   {
-    "imageName": "Sports",
-    "imageUrl": "images/img_6.jpg"
+    "tagCode": "tag_6",
+    "tagName": "Sports",
+    "tagImageUrl": "images/img_6.jpg"
   },
   {
-    "imageName": "Travel",
-    "imageUrl": "images/img_7.jpg"
+    "tagCode": "tag_7",
+    "tagName": "Travel",
+    "tagImageUrl": "images/img_7.jpg"
   },
   {
-    "imageName": "People",
-    "imageUrl": "images/img_2.jpg"
+    "tagCode": "tag_8",
+    "tagName": "People",
+    "tagImageUrl": "images/img_2.jpg"
   },
   {
-    "imageName": "Architecture",
-    "imageUrl": "images/img_1.jpg"
+    "tagCode": "tag_9",
+    "tagName": "Architecture",
+    "tagImageUrl": "images/img_1.jpg"
   }
 ]
