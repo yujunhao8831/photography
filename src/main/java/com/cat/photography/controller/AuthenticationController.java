@@ -57,12 +57,12 @@ public class AuthenticationController {
 		final UserDetails userDetails = ( UserDetails ) authentication.getPrincipal();
 		final String      token       = jwtTokenUtil.generateToken( userDetails );
 		// 返回
-		return new ResponseEntityPro().add("token" , token )
-									  .add( "user" , userDetails )
-									  .flushBodyByFilterFields(
-										  "*,-user.password,-user.lastPasswordResetDate,-user.createTime,-user.updateTime,-user.remark,-user.enabled"
-									  ).buildOk();
-	}
+        return new ResponseEntityPro().add("token" , token)
+                                      .add("user" , userDetails)
+                                      .flushBodyByFilterFields(
+                                              "*,-user.password,-user.lastPasswordResetDate,-user.createTime,-user.updateTime,-user.remark,-user.enabled"
+                                      ).buildOk();
+    }
 
 	/**
 	 * 刷新并认证token
