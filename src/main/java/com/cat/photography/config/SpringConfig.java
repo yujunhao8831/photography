@@ -1,5 +1,8 @@
 package com.cat.photography.config;
 
+import com.baomidou.mybatisplus.annotation.DbType;
+import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
+import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
 import com.cat.photography.common.DateFormatStyle;
 import com.cat.photography.common.JsonUtils;
 import com.cat.photography.common.SimpleDateFormatPro;
@@ -7,6 +10,7 @@ import com.cat.photography.common.filter.RequestLoggingFilter;
 import com.cat.photography.common.interceptor.InjectionAttackInterceptor;
 import com.cat.photography.config.converter.StringToDateConverter;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.web.server.ErrorPage;
 import org.springframework.boot.web.server.ErrorPageRegistrar;
 import org.springframework.boot.web.server.ErrorPageRegistry;
@@ -34,7 +38,18 @@ import java.util.List;
  * @date : 2017/5/10
  */
 @Configuration
+@MapperScan("com.cat.photography.mapper")
 public class SpringConfig implements WebMvcConfigurer, ErrorPageRegistrar {
+
+    /**
+     * 新的分页插件,一缓和二缓遵循mybatis的规则,需要设置 MybatisConfiguration#useDeprecatedExecutor = false 避免缓存出现问题(该属性会在旧插件移除后一同移除)
+     */
+    @Bean
+    public MybatisPlusInterceptor mybatisPlusInterceptor() {
+        MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
+        interceptor.addInnerInterceptor(new PaginationInnerInterceptor(DbType.MYSQL));
+        return interceptor;
+    }
 
     /**
      * 添加过滤器

@@ -1,6 +1,8 @@
 package com.cat.photography.config.security.jwt;
 
+import com.cat.photography.common.JsonUtils;
 import com.cat.photography.common.LogUtils;
+import com.cat.photography.common.ResponseEntityPro;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -16,6 +18,7 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 /**
  * @author pijingzhanji
@@ -40,7 +43,13 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 		final String authToken = this.extractAuthTokenFromRequest( request , this.tokenHeader );
 		String username = null;
 		if ( StringUtils.isNotBlank( authToken ) ) {
-			username  = jwtTokenUtil.getUsernameFromToken( authToken );
+			try {
+				username  = jwtTokenUtil.getUsernameFromToken( authToken );
+			} catch ( Exception e ) {
+				try ( final PrintWriter writer = response.getWriter() ) {
+					writer.write(JsonUtils.toJson(ResponseEntityPro.unauthorized(e.getMessage())));
+				}
+			}
 		}
 
 		LogUtils.getLogger().debug("authToken : {},username : {}" , authToken , username );

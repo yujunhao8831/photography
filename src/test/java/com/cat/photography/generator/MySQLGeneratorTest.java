@@ -10,7 +10,7 @@ public class MySQLGeneratorTest extends BaseGeneratorTest {
      * 数据源配置
      */
     private static final DataSourceConfig DATA_SOURCE_CONFIG = new DataSourceConfig
-            .Builder("jdbc:mysql://127.0.0.1:3306/photography" , "root" , "root")
+            .Builder("jdbc:mysql://127.0.0.1:3306/photography" , "root" , "123456789")
             .schema("photography")
             .build();
 

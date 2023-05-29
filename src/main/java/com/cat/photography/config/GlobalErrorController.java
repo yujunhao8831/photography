@@ -35,7 +35,6 @@ public class GlobalErrorController {
 
 
 
-
 	@ExceptionHandler( ServletRequestBindingException.class )
 	public ResponseEntity servletRequestBindingExceptionHandler ( ServletRequestBindingException e ) {
 		LogUtils.getLogger().error( "error" , e );
