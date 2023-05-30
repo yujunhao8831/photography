@@ -12,13 +12,14 @@ import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/image")
@@ -59,7 +60,13 @@ public class ImageController {
                                                                     pagingRequest.getPageSize())));
     }
 
-
+    @RequestMapping( "upload" )
+    @ResponseBody
+    public ResponseEntity< Map< String, Object > > upload(@RequestParam MultipartFile file) throws IOException {
+        final String pathname = "D:\\idea-git\\photography\\src\\main\\resources\\upload\\" + file.getName();
+        FileUtils.copyFile(file.getResource().getFile() , new File(pathname) );
+        return new ResponseEntityPro().add("pathname" , pathname).buildOk();
+    }
 
 
 }
